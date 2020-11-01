@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/atividade02.iml" filepath="$PROJECT_DIR$/atividade02.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/atividade02_android.iml" filepath="$PROJECT_DIR$/android/atividade02_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kcalculadora.iml" filepath="$PROJECT_DIR$/kcalculadora.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/kcalculadora_android.iml" filepath="$PROJECT_DIR$/android/kcalculadora_android.iml" />
     </modules>
   </component>
 </project>
