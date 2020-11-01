@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("NESSA TELA TEM Q TER CAMPO P USUARIO E SENHA", style: Theme.of(context).textTheme.headline4),
+              Text("USUARIO E SENHA", style: Theme.of(context).textTheme.headline4),
               FlatButton(
                 color: Colors.pink[100],
                 textColor: Colors.white,
