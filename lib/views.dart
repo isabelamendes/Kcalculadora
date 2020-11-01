@@ -1,7 +1,8 @@
-import 'package:atividade01/components/forms.dart';
+import 'package:atividade01/pages/forms.dart';
 import 'package:flutter/material.dart';
 import 'components/biografia.dart';
 import 'utils/constantes.dart';
+import 'database/models.dart';
 
 /*Widget generateIsabelaView() {
   return biografia(URL_FOTO_ISABELA, BIOGRAFIA_ISABELA);
@@ -12,7 +13,7 @@ Widget generateLarissaView() {
 }
 */
 
-Widget generateTelaPrincipal() {
+Widget generateTelaPrincipal(User user) {
   return Center(
     child: Column(
       children: [
@@ -21,6 +22,9 @@ Widget generateTelaPrincipal() {
         Text('CALORIAS PERMITIDAS'),        
         Text('CALORIAS CONSUMIDAS'),
         Text('CALORIAS RESTANTES'),
+        Text('USER: ' + user.username),
+        Text('Senha: ' + user.password),
+        Text('Calorias: ' + user.calorias),
         FlatButton(
                 color: Colors.purple,
                 textColor: Colors.white,

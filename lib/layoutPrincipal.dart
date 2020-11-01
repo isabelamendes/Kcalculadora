@@ -1,18 +1,30 @@
-import 'package:atividade01/components/forms.dart';
+import 'package:atividade01/pages/forms.dart';
 import 'package:flutter/material.dart';
+import 'database/models.dart';
 import 'views.dart';
 
 class MyFirstBottomNavigationBar extends StatefulWidget {
+  User user = new User();
+
+  MyFirstBottomNavigationBar(User user) {
+    this.user = user;
+  }
+
   @override
   State<StatefulWidget> createState() {
-    return new _MyBottomNavigationBar();
+    return new _MyBottomNavigationBar(this.user);
   }
 }
 
 class _MyBottomNavigationBar extends State<MyFirstBottomNavigationBar> {
+  User user = new User();
   int _currentPage = 0;
   var _pages;
   
+  _MyBottomNavigationBar (User user) {
+    this.user = user;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -20,14 +32,7 @@ class _MyBottomNavigationBar extends State<MyFirstBottomNavigationBar> {
     _currentPage = 0;
     _pages = [
       //Container(child: Text("Page 1 - Biografia Isabela")),
-      generateTelaPrincipal(),
-
-      //Text("Page 2 - Biografia Larissa"),
-      //generateLarissaView(),
-
-      //Text("Page 3 - Formulários")
-      //FormNovoAlimento(),
-      //,
+      generateTelaPrincipal(this.user),
     ];
   }
   
@@ -44,14 +49,14 @@ class _MyBottomNavigationBar extends State<MyFirstBottomNavigationBar> {
         home: Scaffold(
             body: Center(child: _pages.elementAt(_currentPage)),
             appBar: AppBar(title: Text("Kcalculadora")),
-            /*bottomNavigationBar: BottomNavigationBar(
+            bottomNavigationBar: BottomNavigationBar(
               items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.face), title: Text("Isabela")),
+                    icon: Icon(Icons.face), title: Text("Meu dia")),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.tag_faces), title: Text("Larissa")),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.book), title: Text("Formulários"))
+                    icon: Icon(Icons.tag_faces), title: Text("Meu histórico")),
+                /*BottomNavigationBarItem(
+                    icon: Icon(Icons.book), title: Text("Formulários"))*/
               ],
               fixedColor: Colors.purple,
               currentIndex: _currentPage,
@@ -60,16 +65,13 @@ class _MyBottomNavigationBar extends State<MyFirstBottomNavigationBar> {
                   _currentPage = index;
                 });
               },
-            )*/
-            drawer: Drawer(
-          child: mySecondListView(),
-        ) 
+            )
+             
         )
     );
                
   }
-  Widget mySecondListView() {
-    return ListView(
+    /*return ListView(
       children: [
         DrawerHeader(
           child: Text("Menu"),
@@ -92,7 +94,7 @@ class _MyBottomNavigationBar extends State<MyFirstBottomNavigationBar> {
         ),
       ],
     );
-  }
+  }*/
 }
 
 

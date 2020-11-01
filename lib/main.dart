@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'components/login.dart';
+import 'pages/login.dart';
+import 'pages/template1/loginPage.dart';
 import 'layoutPrincipal.dart';
+import 'database/models.dart';
 
 void main() {
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   
   @override
@@ -17,30 +18,22 @@ class MyApp extends StatelessWidget {
         
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Kcalculadora'),
+      home: MyLoginPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class Batata extends StatefulWidget {
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginPageState createState() => _LoginPageState();
+
 }
-
-
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginPageState extends State<Batata> {
   var _context;
   void _telaPrincipal() {
     setState((){
-      Navigator.push(_context,
-        MaterialPageRoute(builder: (BuildContext context){
-          return MyFirstBottomNavigationBar();
-        })
-      );
+      
     });
   }
 
@@ -51,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("alo"),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -93,5 +86,5 @@ class _MyHomePageState extends State<MyHomePage> {
       ),    
     );
   }
-  
 }
+
