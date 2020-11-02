@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/database/models.dart';
-import 'package:kcalculadora/pages/telaPrincipal/layoutPrincipal.dart';
+import 'package:kcalculadora/pages/telaPrincipal/telaNavegacao.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
 
-class _LoginPageState extends State<MyLoginPage>
-    with TickerProviderStateMixin {
+class _LoginPageState extends State<MyLoginPage> {
 
   var _context;
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
@@ -19,7 +20,7 @@ class _LoginPageState extends State<MyLoginPage>
       Navigator.push(_context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-          return MyFirstBottomNavigationBar(user);
+          return TelaNavegacao(user);
         })
       );
     });
@@ -49,11 +50,11 @@ class _LoginPageState extends State<MyLoginPage>
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Colors.redAccent,
+        color: PRIMARY_THEME_COLOR,
         image: DecorationImage(
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.1), BlendMode.dstATop),
-          image: AssetImage('assets/images/full-bloom.png'),
+              Colors.black.withOpacity(0.15), BlendMode.dstATop),
+          image: AssetImage('assets/images/apple.png'),
           fit: BoxFit.cover,
         ),
       ),
@@ -62,12 +63,12 @@ class _LoginPageState extends State<MyLoginPage>
           Container(
             padding: EdgeInsets.only(top: 250.0),
             child: Center(
-              child: Icon(
-                Icons.cake,
+              child: FaIcon(
+                FontAwesomeIcons.leaf,
                 color: Colors.white,
-                size: 40.0,
+                size: 50.0,
               ),
-            ),
+            )
           ),
           Container(
             padding: EdgeInsets.only(top: 20.0),
@@ -154,7 +155,7 @@ class _LoginPageState extends State<MyLoginPage>
                               "Entrar",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.redAccent,
+                                  color: PRIMARY_THEME_COLOR,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -178,8 +179,8 @@ class _LoginPageState extends State<MyLoginPage>
         color: Colors.white,
         image: DecorationImage(
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.5), BlendMode.dstATop),
-          image: AssetImage('assets/images/background.jpg'),
+              Colors.black.withOpacity(0.07), BlendMode.dstATop),
+          image: AssetImage('assets/images/apple.png'),
           fit: BoxFit.cover,
         ),
       ),
@@ -187,13 +188,6 @@ class _LoginPageState extends State<MyLoginPage>
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(120.0),
-            child: Center(
-              child: Icon(
-                Icons.cake,
-                color: Colors.redAccent,
-                size: 50.0,
-              ),
-            ),
           ),
           new Row(
             children: <Widget>[
@@ -204,7 +198,7 @@ class _LoginPageState extends State<MyLoginPage>
                     "Email",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: PRIMARY_THEME_COLOR,
                       fontSize: 15.0,
                     ),
                   ),
@@ -219,7 +213,7 @@ class _LoginPageState extends State<MyLoginPage>
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
+                    color: PRIMARY_THEME_COLOR,
                     width: 0.5,
                     style: BorderStyle.solid),
               ),
@@ -255,7 +249,7 @@ class _LoginPageState extends State<MyLoginPage>
                     "Senha",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: PRIMARY_THEME_COLOR,
                       fontSize: 15.0,
                     ),
                   ),
@@ -270,7 +264,7 @@ class _LoginPageState extends State<MyLoginPage>
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
+                    color: PRIMARY_THEME_COLOR,
                     width: 0.5,
                     style: BorderStyle.solid),
               ),
@@ -307,7 +301,7 @@ class _LoginPageState extends State<MyLoginPage>
                     "Não possui uma conta?",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: PRIMARY_THEME_COLOR,
                       fontSize: 15.0,
                     ),
                     textAlign: TextAlign.end,
@@ -318,40 +312,48 @@ class _LoginPageState extends State<MyLoginPage>
             ],
           ),
           Container(
-            width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-            alignment: Alignment.center,
             child: new Row(
               children: <Widget>[
                 new Expanded(
-                  child: new FlatButton(
+                  child: FlatButton(
                     shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    color: Colors.redAccent,
-                    onPressed: () {
-                      _toTelaPrincipalView(user);
-                    },
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "Entrar",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    splashColor: PRIMARY_THEME_COLOR,
+                    color: PRIMARY_THEME_COLOR,
+                    child: new Row(
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "Entrar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        new Expanded(
+                          child: Container(),
+                        ),
+                        new Transform.translate(
+                          offset: Offset(15.0, 0.0),
+                          child: new Container(
+                            padding: const EdgeInsets.all(5.0),
+                            child: FlatButton(
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius:
+                                  new BorderRadius.circular(28.0)),
+                              splashColor: Colors.white,
+                              color: Colors.white,
+                              child: FaIcon(
+                                FontAwesomeIcons.signInAlt,
+                                color: PRIMARY_THEME_COLOR,
+                              ),
+                              onPressed: () => _toTelaPrincipalView(user),
                             ),
                           ),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
+                    onPressed: () => _toTelaPrincipalView(user),
                   ),
                 ),
               ],
@@ -369,8 +371,8 @@ class _LoginPageState extends State<MyLoginPage>
         color: Colors.white,
         image: DecorationImage(
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.2), BlendMode.dstATop),
-          image: AssetImage('assets/images/background5.jpg'),
+              Colors.black.withOpacity(0.07), BlendMode.dstATop),
+          image: AssetImage('assets/images/apple.png'),
           fit: BoxFit.cover,
         ),
       ),
@@ -378,13 +380,7 @@ class _LoginPageState extends State<MyLoginPage>
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(60.0),
-            child: Center(
-              child: Icon(
-                Icons.cake,
-                color: Colors.redAccent,
-                size: 50.0,
-              ),
-            ),
+            
           ),
           Row(
             children: <Widget>[
@@ -395,7 +391,7 @@ class _LoginPageState extends State<MyLoginPage>
                     "Email",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: PRIMARY_THEME_COLOR,
                       fontSize: 15.0,
                     ),
                   ),
@@ -410,7 +406,7 @@ class _LoginPageState extends State<MyLoginPage>
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
+                    color: PRIMARY_THEME_COLOR,
                     width: 0.5,
                     style: BorderStyle.solid),
               ),
@@ -446,7 +442,7 @@ class _LoginPageState extends State<MyLoginPage>
                     "Senha",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: PRIMARY_THEME_COLOR,
                       fontSize: 15.0,
                     ),
                   ),
@@ -461,7 +457,7 @@ class _LoginPageState extends State<MyLoginPage>
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
+                    color: PRIMARY_THEME_COLOR,
                     width: 0.5,
                     style: BorderStyle.solid),
               ),
@@ -497,7 +493,7 @@ class _LoginPageState extends State<MyLoginPage>
                     "Confirmar Senha",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: PRIMARY_THEME_COLOR,
                       fontSize: 15.0,
                     ),
                   ),
@@ -512,7 +508,7 @@ class _LoginPageState extends State<MyLoginPage>
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: Colors.redAccent,
+                    color: PRIMARY_THEME_COLOR,
                     width: 0.5,
                     style: BorderStyle.solid),
               ),
@@ -549,7 +545,7 @@ class _LoginPageState extends State<MyLoginPage>
                     "Já possui uma conta?",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
+                      color: PRIMARY_THEME_COLOR,
                       fontSize: 15.0,
                     ),
                     textAlign: TextAlign.end,
@@ -560,7 +556,6 @@ class _LoginPageState extends State<MyLoginPage>
             ],
           ),
           new Container(
-            width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 50.0),
             alignment: Alignment.center,
             child: new Row(
@@ -568,32 +563,44 @@ class _LoginPageState extends State<MyLoginPage>
                 new Expanded(
                   child: Builder(
                     builder: (context) => Center(
-                      child: new FlatButton(
+                      child: FlatButton(
                         shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0),
-                        ),
-                        color: Colors.redAccent,
-                        onPressed: () => _registrarUsuario(context),
-                        child: new Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20.0,
-                            horizontal: 20.0,
-                          ),
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              new Expanded(
-                                child: Text(
-                                  "Registrar-se",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        splashColor: PRIMARY_THEME_COLOR,
+                        color: PRIMARY_THEME_COLOR,
+                        child: new Row(
+                          children: <Widget>[
+                            new Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Text(
+                                "Criar conta",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            new Expanded(
+                              child: Container(),
+                            ),
+                            new Transform.translate(
+                              offset: Offset(15.0, 0.0),
+                              child: new Container(
+                                padding: const EdgeInsets.all(5.0),
+                                child: FlatButton(
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                      new BorderRadius.circular(28.0)),
+                                  splashColor: Colors.white,
+                                  color: Colors.white,
+                                  child: FaIcon(
+                                    FontAwesomeIcons.userPlus,
+                                    color: PRIMARY_THEME_COLOR,
+                                  ),
+                                  onPressed: () => _registrarUsuario(context),
                                 ),
                               ),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
+                        onPressed: () => _registrarUsuario(context),
                       ),
                     ),
                   ),

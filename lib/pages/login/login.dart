@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kcalculadora/database/models.dart';
-import 'package:kcalculadora/pages/telaPrincipal/layoutPrincipal.dart';
+import 'package:kcalculadora/pages/telaPrincipal/telaNavegacao.dart';
 
 class MyLoginPage extends StatefulWidget {
 
@@ -18,7 +18,7 @@ class _LoginPageState extends State<MyLoginPage> {
     setState((){
       Navigator.push(_context,
         MaterialPageRoute(builder: (BuildContext context){
-          return MyFirstBottomNavigationBar(user);
+          return TelaNavegacao(user);
         })
       );
     });

@@ -4,6 +4,7 @@ import 'package:kcalculadora/pages/login/login_teste.dart';
 void main() {
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   
   @override

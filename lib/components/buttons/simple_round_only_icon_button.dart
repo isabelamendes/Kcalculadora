@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kcalculadora/utils/constantes.dart';
 
 class SimpleRoundOnlyIconButton extends StatelessWidget {
   final Color backgroundColor;
@@ -8,7 +9,7 @@ class SimpleRoundOnlyIconButton extends StatelessWidget {
   final Function onPressed;
 
   SimpleRoundOnlyIconButton(
-      {this.backgroundColor = Colors.redAccent,
+      {this.backgroundColor = PRIMARY_THEME_COLOR,
       this.icon,
       this.iconColor,
       this.iconAlignment = Alignment.center,
