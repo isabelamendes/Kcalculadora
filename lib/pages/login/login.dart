@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../database/models.dart';
-import '../layoutPrincipal.dart';
+import 'package:kcalculadora/database/models.dart';
+import 'package:kcalculadora/layoutPrincipal.dart';
 
 class MyLoginPage extends StatefulWidget {
 

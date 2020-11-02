@@ -1,17 +1,27 @@
-import 'package:atividade01/pages/forms.dart';
 import 'package:flutter/material.dart';
-import 'components/biografia.dart';
-import 'utils/constantes.dart';
 import 'database/models.dart';
 
-/*Widget generateIsabelaView() {
-  return biografia(URL_FOTO_ISABELA, BIOGRAFIA_ISABELA);
+Widget homePageView() {
+  
 }
 
-Widget generateLarissaView() {
-  return biografia(URL_FOTO_LARISSA, BIOGRAFIA_LARISSA);
+Widget loginView() {
+
 }
-*/
+
+Widget signUpView() {
+
+}
+
+Widget biografiaView(nameImage, biografia) {
+  return Center(
+    child: Column(children: [
+      Text('BIOGRAFIA'),
+      Image(image: AssetImage(nameImage), height: 300, fit: BoxFit.fitHeight),
+      Text(biografia),
+    ]),
+  );
+}
 
 Widget generateTelaPrincipal(User user) {
   return Center(
