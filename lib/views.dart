@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'components/buttons/simple_round_icon_button.dart';
+import 'components/buttons/simple_round_button.dart';
+import 'components/loaders/flip_loader.dart';
 import 'database/models.dart';
 
 Widget homePageView() {
@@ -34,20 +37,19 @@ Widget generateTelaPrincipal(User user) {
         Text('CALORIAS RESTANTES'),
         Text('USER: ' + user.username),
         Text('Senha: ' + user.password),
-        Text('Calorias: ' + user.calorias),
-        FlatButton(
-                color: Colors.purple,
-                textColor: Colors.white,
-                disabledColor: Colors.grey,
-                disabledTextColor: Colors.black,
-                padding: EdgeInsets.all(8.0),
-                splashColor: Colors.black,
-                //onPressed: _telaListaAlimentos,
-                child: Text(
-                  "Adicionar calorias",
-                  style: TextStyle(fontSize: 20.0), 
-                ),
-        ),
+        Text('TEMOS WIFIIIIIIII!'),
+        SimpleRoundButton(
+          backgroundColor: Color(0xFFfc6462),
+          buttonText: Text(
+            "Adicionar Alimento",
+            style: TextStyle(
+              color: Colors.white
+              )
+          ),
+          onPressed: () {},
+        ),        
+         // icon: Icon(Icons.email),
+        
       ]
     ),
   );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'database/models.dart';
-import 'views.dart';
+import 'package:kcalculadora/database/models.dart';
+import 'package:kcalculadora/views.dart';
 
 class MyFirstBottomNavigationBar extends StatefulWidget {
   User user = new User();
@@ -41,7 +41,7 @@ class _MyBottomNavigationBar extends State<MyFirstBottomNavigationBar> {
         title: "Gerenciador de Layout",
         theme: ThemeData(
         
-        primaryColor: Color(0xFF44789B),
+        primaryColor: Color(0xFFfc6462),
         
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -57,7 +57,7 @@ class _MyBottomNavigationBar extends State<MyFirstBottomNavigationBar> {
                 /*BottomNavigationBarItem(
                     icon: Icon(Icons.book), title: Text("Formulários"))*/
               ],
-              fixedColor: Colors.purple,
+              fixedColor: Colors.redAccent,
               currentIndex: _currentPage,
               onTap: (int index) {
                 setState(() {

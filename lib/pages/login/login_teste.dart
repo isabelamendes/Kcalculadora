@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kcalculadora/database/models.dart';
+import 'package:kcalculadora/pages/telaPrincipal/layoutPrincipal.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -7,6 +9,36 @@ class MyLoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<MyLoginPage>
     with TickerProviderStateMixin {
+
+  var _context;
+  final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  final User user = new User();
+
+  _toTelaPrincipalView(User user) {
+    setState((){
+      Navigator.push(_context,
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+          return MyFirstBottomNavigationBar(user);
+        })
+      );
+    });
+  }
+
+  void _registrarUsuario(BuildContext context) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text('Usuário registrado com sucesso!'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {
+
+          },
+        ),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -31,7 +63,7 @@ class _LoginPageState extends State<MyLoginPage>
             padding: EdgeInsets.only(top: 250.0),
             child: Center(
               child: Icon(
-                Icons.fastfood_sharp,
+                Icons.cake,
                 color: Colors.white,
                 size: 40.0,
               ),
@@ -59,7 +91,7 @@ class _LoginPageState extends State<MyLoginPage>
               ],
             ),
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 150.0),
             alignment: Alignment.center,
@@ -69,7 +101,7 @@ class _LoginPageState extends State<MyLoginPage>
                   child: new OutlineButton(
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                    color: Colors.redAccent,
+                    color: Colors.white,
                     highlightedBorderColor: Colors.white,
                     onPressed: () => gotoSignup(),
                     child: new Container(
@@ -97,7 +129,7 @@ class _LoginPageState extends State<MyLoginPage>
               ],
             ),
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
             alignment: Alignment.center,
@@ -146,8 +178,8 @@ class _LoginPageState extends State<MyLoginPage>
         color: Colors.white,
         image: DecorationImage(
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.1), BlendMode.dstATop),
-          image: AssetImage('assets/images/full-bloom.png'),
+              Colors.black.withOpacity(0.5), BlendMode.dstATop),
+          image: AssetImage('assets/images/background.jpg'),
           fit: BoxFit.cover,
         ),
       ),
@@ -157,7 +189,7 @@ class _LoginPageState extends State<MyLoginPage>
             padding: EdgeInsets.all(120.0),
             child: Center(
               child: Icon(
-                Icons.fastfood_sharp,
+                Icons.cake,
                 color: Colors.redAccent,
                 size: 50.0,
               ),
@@ -169,7 +201,7 @@ class _LoginPageState extends State<MyLoginPage>
                 child: new Padding(
                   padding: const EdgeInsets.only(left: 40.0),
                   child: new Text(
-                    "User / Email",
+                    "Email",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.redAccent,
@@ -180,7 +212,7 @@ class _LoginPageState extends State<MyLoginPage>
               ),
             ],
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
             alignment: Alignment.center,
@@ -231,7 +263,7 @@ class _LoginPageState extends State<MyLoginPage>
               ),
             ],
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
             alignment: Alignment.center,
@@ -272,7 +304,7 @@ class _LoginPageState extends State<MyLoginPage>
                 padding: const EdgeInsets.only(right: 20.0),
                 child: new FlatButton(
                   child: new Text(
-                    "Esqueceu sua Senha?",
+                    "Não possui uma conta?",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.redAccent,
@@ -280,12 +312,12 @@ class _LoginPageState extends State<MyLoginPage>
                     ),
                     textAlign: TextAlign.end,
                   ),
-                  onPressed: () => {},
+                  onPressed: () => gotoSignup(),
                 ),
               ),
             ],
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
             alignment: Alignment.center,
@@ -297,7 +329,9 @@ class _LoginPageState extends State<MyLoginPage>
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
                     color: Colors.redAccent,
-                    onPressed: () => {},
+                    onPressed: () {
+                      _toTelaPrincipalView(user);
+                    },
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
@@ -308,7 +342,7 @@ class _LoginPageState extends State<MyLoginPage>
                         children: <Widget>[
                           new Expanded(
                             child: Text(
-                              "LOGIN",
+                              "Entrar",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.white,
@@ -323,186 +357,42 @@ class _LoginPageState extends State<MyLoginPage>
               ],
             ),
           ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-            alignment: Alignment.center,
-            child: Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(border: Border.all(width: 0.25)),
-                  ),
-                ),
-                Text(
-                  "OR CONNECT WITH",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(border: Border.all(width: 0.25)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.only(right: 8.0),
-                    alignment: Alignment.center,
-                    child: new Row(
-                      children: <Widget>[
-                        new Expanded(
-                          child: new FlatButton(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                            color: Color(0Xff3B5998),
-                            onPressed: () => {},
-                            child: new Container(
-                              child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new Expanded(
-                                    child: new FlatButton(
-                                      onPressed: ()=>{},
-                                      padding: EdgeInsets.only(
-                                        top: 20.0,
-                                        bottom: 20.0,
-                                      ),
-                                      child: new Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Icon(
-                                            const IconData(0xea90,
-                                                fontFamily: 'icomoon'),
-                                            color: Colors.white,
-                                            size: 15.0,
-                                          ),
-                                          Text(
-                                            "FACEBOOK",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                new Expanded(
-                  child: new Container(
-                    margin: EdgeInsets.only(left: 8.0),
-                    alignment: Alignment.center,
-                    child: new Row(
-                      children: <Widget>[
-                        new Expanded(
-                          child: new FlatButton(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                            color: Color(0Xffdb3236),
-                            onPressed: () => {},
-                            child: new Container(
-                              child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new Expanded(
-                                    child: new FlatButton(
-                                      onPressed: ()=>{},
-                                      padding: EdgeInsets.only(
-                                        top: 20.0,
-                                        bottom: 20.0,
-                                      ),
-                                      child: new Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Icon(
-                                            const IconData(0xea88,
-                                                fontFamily: 'icomoon'),
-                                            color: Colors.white,
-                                            size: 15.0,
-                                          ),
-                                          Text(
-                                            "GOOGLE",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );
   }
 
   Widget SignupPage() {
-    return new Container(
+    return Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.05), BlendMode.dstATop),
-          image: AssetImage('assets/images/mountains.jpeg'),
+              Colors.black.withOpacity(0.2), BlendMode.dstATop),
+          image: AssetImage('assets/images/background5.jpg'),
           fit: BoxFit.cover,
         ),
       ),
-      child: new Column(
+      child: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(100.0),
+            padding: EdgeInsets.all(60.0),
             child: Center(
               child: Icon(
-                Icons.fastfood_sharp,
+                Icons.cake,
                 color: Colors.redAccent,
                 size: 50.0,
               ),
             ),
           ),
-          new Row(
+          Row(
             children: <Widget>[
               new Expanded(
                 child: new Padding(
                   padding: const EdgeInsets.only(left: 40.0),
                   child: new Text(
-                    "User / Email",
+                    "Email",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.redAccent,
@@ -513,7 +403,7 @@ class _LoginPageState extends State<MyLoginPage>
               ),
             ],
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
             alignment: Alignment.center,
@@ -547,7 +437,7 @@ class _LoginPageState extends State<MyLoginPage>
           Divider(
             height: 24.0,
           ),
-          new Row(
+          Row(
             children: <Widget>[
               new Expanded(
                 child: new Padding(
@@ -564,7 +454,7 @@ class _LoginPageState extends State<MyLoginPage>
               ),
             ],
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
             alignment: Alignment.center,
@@ -615,7 +505,7 @@ class _LoginPageState extends State<MyLoginPage>
               ),
             ],
           ),
-          new Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
             alignment: Alignment.center,
@@ -664,7 +554,7 @@ class _LoginPageState extends State<MyLoginPage>
                     ),
                     textAlign: TextAlign.end,
                   ),
-                  onPressed: () => {},
+                  onPressed: () => gotoLogin(),
                 ),
               ),
             ],
@@ -676,30 +566,34 @@ class _LoginPageState extends State<MyLoginPage>
             child: new Row(
               children: <Widget>[
                 new Expanded(
-                  child: new FlatButton(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    color: Colors.redAccent,
-                    onPressed: () => {},
-                    child: new Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
-                        horizontal: 20.0,
-                      ),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Expanded(
-                            child: Text(
-                              "SIGN UP",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                  child: Builder(
+                    builder: (context) => Center(
+                      child: new FlatButton(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                        color: Colors.redAccent,
+                        onPressed: () => _registrarUsuario(context),
+                        child: new Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 20.0,
+                            horizontal: 20.0,
                           ),
-                        ],
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Expanded(
+                                child: Text(
+                                  "Registrar-se",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -732,6 +626,7 @@ class _LoginPageState extends State<MyLoginPage>
 
   @override
   Widget build(BuildContext context) {
+    this._context = context;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
