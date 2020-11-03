@@ -43,19 +43,28 @@ class _MyDiario extends State<Diario> {
     this._context = context;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(children: [
-            SingleChildScrollView(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                decoration: primaryBackgroundView(),
-                child: diarioView(),
-              )
-            )
-          ])
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: primaryBackgroundView(),
+        child: Column(
+          children: [
+            diarioView(),
+            SimpleRoundButton(
+              backgroundColor: PRIMARY_THEME_COLOR,
+              buttonText: Text(
+                "Adicionar Alimento",
+                style: TextStyle(
+                  color: Colors.white
+                  )
+              ),
+              onPressed: () => _toListaAlimentosView(),
+            ),
+            Divider(
+              height: 25,
+            ),
+          ],
         )
-      )
+      ),
     );
   }
 }

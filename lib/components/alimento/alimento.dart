@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AlimentoView extends StatelessWidget {
 
@@ -15,7 +16,11 @@ class AlimentoView extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.cake),
       title: nome,
-      trailing: Icon(Icons.add_circle_outlined),
+      trailing: FaIcon(FontAwesomeIcons.plus),
+      onTap: () {
+        
+      },
+      
     );
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kcalculadora/database/models.dart';
 import 'package:kcalculadora/pages/telaPrincipal/diario.dart';
-import 'package:kcalculadora/pages/telaPrincipal/meuConsumo.dart';
+import 'package:kcalculadora/pages/telaPrincipal/historico.dart';
 import 'package:kcalculadora/pages/telaPrincipal/perfil.dart';
 import 'package:kcalculadora/utils/constantes.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class TelaNavegacao extends StatefulWidget {
@@ -56,11 +57,14 @@ class _MyTelaNavegacao extends State<TelaNavegacao> {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.today), label: "Diário"),
+                icon: FaIcon(FontAwesomeIcons.calendarDay), title: Text("Diário"),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.history_outlined), label: "Histórico"),
+                icon: FaIcon(FontAwesomeIcons.history), title: Text("Histórico")
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle_rounded), label: "Perfil"),
+                icon: FaIcon(FontAwesomeIcons.user), title: Text("Perfil")
+            ),
           ],
           fixedColor: PRIMARY_THEME_COLOR,
           currentIndex: _currentPage,

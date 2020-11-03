@@ -10,7 +10,7 @@ class SimpleRoundIconButton extends StatelessWidget {
   final Alignment iconAlignment;
   final Function onPressed;
 
-  SimpleRoundIconButton({
+  SimpleRoundIconButton(Map map, {
     this.backgroundColor = PRIMARY_THEME_COLOR,
     this.buttonText = const Text("REQUIRED TEXT"),
     this.icon = const Icon(Icons.email),

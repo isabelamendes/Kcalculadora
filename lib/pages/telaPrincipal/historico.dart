@@ -52,16 +52,7 @@ class _MyConsumo extends State<Consumo> {
           Text('USER: ' + this.user.username),
           Text('Senha: ' + this.user.password),
           Text('TEMOS WIFIIIIIIII!'),
-            SimpleRoundButton(
-              backgroundColor: PRIMARY_THEME_COLOR,
-              buttonText: Text(
-                "Adicionar Alasdasdaimento",
-                style: TextStyle(
-                  color: Colors.white
-                  )
-              ),
-              onPressed: () => _toListaAlimentosView(),
-            ),
+            
         ]
       ),
     );
