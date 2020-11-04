@@ -4,7 +4,9 @@ class User {
   String username = "";
   String password = "";
   String email = "";
-  String calorias = "5000";
+  int calorias = 5000;  //texformfields
+  String objetivo = ""; //radiobutton
+  bool notificacoes = false;  //switch
 
   isValidUser() {
     return true;

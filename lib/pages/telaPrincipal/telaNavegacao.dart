@@ -6,6 +6,8 @@ import 'package:kcalculadora/pages/telaPrincipal/perfil.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../forms.dart';
+import 'perfil.dart';
 
 class TelaNavegacao extends StatefulWidget {
   User user;
@@ -25,6 +27,7 @@ class _MyTelaNavegacao extends State<TelaNavegacao> {
   int _currentPage = 0;
   var _pages;
   
+  
   var _context;
 
   _MyTelaNavegacao(User user) {
@@ -38,7 +41,7 @@ class _MyTelaNavegacao extends State<TelaNavegacao> {
     _pages = [
       Diario(this.user),
       Consumo(this.user),
-      Perfil(this.user),
+      Perfil(this.user),  
     ];
   }
   

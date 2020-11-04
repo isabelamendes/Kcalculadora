@@ -4,7 +4,7 @@ import 'package:kcalculadora/components/buttons/simple_round_button.dart';
 
 BoxDecoration primaryBackgroundView() {
   return BoxDecoration(
-    color: SECONDARY_THEME_COLOR,
+    color: BACKGROUND_THEME_COLOR,
     image: DecorationImage(
       colorFilter: new ColorFilter.mode(
           Colors.black.withOpacity(0.2), BlendMode.dstATop),

@@ -69,7 +69,9 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
                               color: Colors.white
                               )
                           ),
-                          onPressed: () => () {}
+                          onPressed: () { 
+                            Navigator.pop(context);
+                          },
                         ),
                       ],
                     )

@@ -49,15 +49,18 @@ class _MyDiario extends State<Diario> {
         child: Column(
           children: [
             diarioView(),
-            SimpleRoundButton(
-              backgroundColor: PRIMARY_THEME_COLOR,
-              buttonText: Text(
-                "Adicionar Alimento",
-                style: TextStyle(
-                  color: Colors.white
+            Container(
+              padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+              child: SimpleRoundButton(
+                backgroundColor: PRIMARY_THEME_COLOR,
+                buttonText: Text(
+                  "Adicionar Alimento",
+                  style: TextStyle(
+                    color: Colors.white
                   )
+                ),
+                onPressed: () => _toListaAlimentosView(),
               ),
-              onPressed: () => _toListaAlimentosView(),
             ),
             Divider(
               height: 25,

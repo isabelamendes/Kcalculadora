@@ -225,7 +225,6 @@ class _LoginPageState extends State<MyLoginPage> {
               children: <Widget>[
                 new Expanded(
                   child: TextField(
-                    obscureText: true,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -418,7 +417,6 @@ class _LoginPageState extends State<MyLoginPage> {
               children: <Widget>[
                 new Expanded(
                   child: TextField(
-                    obscureText: true,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: InputBorder.none,
