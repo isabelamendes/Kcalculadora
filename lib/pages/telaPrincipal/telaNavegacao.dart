@@ -40,8 +40,8 @@ class _MyTelaNavegacao extends State<TelaNavegacao> {
     _currentPage = 0;
     _pages = [
       Diario(this.user),
-      Consumo(this.user),
-      Perfil(this.user),  
+      Historico(this.user),
+      Perfil(this.user),
     ];
   }
   

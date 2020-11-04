@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/components/buttons/simple_round_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 BoxDecoration primaryBackgroundView() {
   return BoxDecoration(
@@ -141,5 +142,74 @@ Widget diarioView() {
         
       ],
     )
+  );
+}
+
+Widget dataTableHistoricoView(BuildContext context) {
+  return DataTable(
+    columns: const <DataColumn>[
+      DataColumn(
+        label: Text(
+          'Dia',
+          style: TextStyle(fontWeight: FontWeight.bold) ,
+        ),
+      ),
+      DataColumn(
+        label: Text(
+          'Calorias',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+      DataColumn(
+        label: Text(
+          'Objetivo Alcançado',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+    ],
+    rows: const <DataRow>[
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('20/10/2020')),
+          DataCell(Text('1998Kcal')),
+          DataCell(FaIcon(FontAwesomeIcons.checkCircle, color:Colors.green))
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('21/10/2020')),
+          DataCell(Text('1760Kcal')),
+          DataCell(FaIcon(FontAwesomeIcons.checkCircle, color:Colors.green))
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('22/10/2020')),
+          DataCell(Text('2133Kcal')),
+          DataCell(FaIcon(FontAwesomeIcons.times, color:Colors.red))
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('23/10/2020')),
+          DataCell(Text('2423Kcal')),
+          DataCell(FaIcon(FontAwesomeIcons.times, color:Colors.red))
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('24/10/2020')),
+          DataCell(Text('1765Kcal')),
+          DataCell(FaIcon(FontAwesomeIcons.checkCircle, color:Colors.green))
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('25/10/2020')),
+          DataCell(Text('1999Kcal')),
+          DataCell(FaIcon(FontAwesomeIcons.checkCircle, color:Colors.green))
+        ],
+      ),
+    ],
   );
 }
