@@ -6,6 +6,7 @@ import 'package:kcalculadora/pages/login/login.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/pages/telaPrincipal/diario.dart';
 import 'package:kcalculadora/components/views.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ListaAlimentos extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class ListaAlimentos extends StatefulWidget {
 
 class _ListaAlimentosState extends State<ListaAlimentos> {
 
+  var _context;
   final Alimento alimento = new Alimento();
 
   void _adicionarAlimento(BuildContext context) {
@@ -36,51 +38,30 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
   }
   
   Widget build(BuildContext context) {
+    this._context = context;
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ), 
+        title: Text("Lista de Alimentos"),
+        centerTitle: true,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(children: [
-            SingleChildScrollView(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: PageView(
-                  physics: new AlwaysScrollableScrollPhysics(),
-                  children: <Widget>[
-                    ListView(
-                      children: <Widget>[
-                        AlimentoView(
-                          nome: Text('Banana'),
-                          calorias: Text('90Kcal'),
-                        ),
-                        AlimentoView(
-                          nome: Text('Banana'),
-                          calorias: Text('90Kcal'),
-                        ),
-                        AlimentoView(
-                          nome: Text('Banana'),
-                          calorias: Text('90Kcal'),
-                        ),
-                        SimpleRoundButton(
-                          backgroundColor: PRIMARY_THEME_COLOR,
-                          buttonText: Text(
-                            "Voltar",
-                            style: TextStyle(
-                              color: Colors.white
-                              )
-                          ),
-                          onPressed: () => () {}
-                        ),
-                      ],
-                    )
-                  ],
-                  scrollDirection: Axis.horizontal,
-                )
-              )
-            )
-          ])
+        child: Container(
+          decoration: secondaryBackgroundView(),
+          height: MediaQuery.of(context).size.height,
+          child: PageView(
+            physics: new AlwaysScrollableScrollPhysics(),
+            children: <Widget>[
+              dataTableAlimentosView(context),
+            ],
+            scrollDirection: Axis.horizontal,
+          )
+        )
       )
-    )
     );
   }
 }

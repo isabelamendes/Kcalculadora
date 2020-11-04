@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/components/buttons/simple_round_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 BoxDecoration primaryBackgroundView() {
   return BoxDecoration(
@@ -14,6 +16,7 @@ BoxDecoration primaryBackgroundView() {
   );
 }
 
+
 BoxDecoration secondaryBackgroundView() {
   return BoxDecoration(
     color: Colors.white,
@@ -25,6 +28,100 @@ BoxDecoration secondaryBackgroundView() {
     ),
   );
 }
+
+Widget dataTableAlimentosView(BuildContext context) {
+
+  void enviarMensagem(String nomeAlimento, BuildContext context) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(nomeAlimento + ' adicionada ao diário!'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {
+          },
+        ),
+      ),
+    );
+  }
+
+  return ListView(
+    children: [
+      ListTile(
+        title: Text('Banana'),
+        isThreeLine: true,
+        subtitle: Text('96Kcal'),
+        leading: Icon(Icons.label),
+        trailing: Builder(
+          builder: (context) => 
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.plusSquare),
+            tooltip: 'Adicionar Alimento',
+            onPressed: () => enviarMensagem('Banana', context),
+          ),
+        )
+      ),
+      ListTile(
+        title: Text('Maça'),
+        isThreeLine: true,
+        subtitle: Text('54Kcal'),
+        leading: Icon(Icons.label),
+        trailing: Builder(
+          builder: (context) => 
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.plusSquare),
+            tooltip: 'Adicionar Alimento',
+            onPressed: () => enviarMensagem('Maça', context),
+          ),
+        ),
+      ),
+      ListTile(
+        title: Text('200ml de Leite'),
+        isThreeLine: true,
+        subtitle: Text('124Kcal'),
+        leading: Icon(Icons.label),
+        trailing: Builder(
+          builder: (context) => 
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.plusSquare),
+            tooltip: 'Adicionar Alimento',
+            onPressed: () => enviarMensagem('200ml de Leite', context),
+          ),
+        ),
+      ),
+      ListTile(
+        title: Text('200g de Frango'),
+        isThreeLine: true,
+        subtitle: Text('278Kcal'),
+        leading: Icon(Icons.label),
+        trailing: Builder(
+          builder: (context) => 
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.plusSquare),
+            tooltip: 'Adicionar Alimento',
+            onPressed: () => enviarMensagem('200g de Frango', context),
+          ),
+        ),
+      ),
+      ListTile(
+        title: Text('200g de Carne'),
+        isThreeLine: true,
+        subtitle: Text('284Kcal'),
+        leading: Icon(Icons.label),
+        trailing: Builder(
+          builder: (context) => 
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.plusSquare),
+            tooltip: 'Adicionar Alimento',
+            onPressed: () => enviarMensagem('200g de Carne', context),
+          ),
+        ),
+      ),
+      
+    ],
+  );
+}
+
 
 Widget diarioView() {
   return Expanded(
