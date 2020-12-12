@@ -20,9 +20,9 @@ void _salvarConfig(BuildContext context) {
 
 
 class Perfil extends StatefulWidget {
-  User user = new User();
+  UserKcal user = new UserKcal();
 
-  Perfil(User user) {
+  Perfil(UserKcal user) {
     this.user = user;
   }
 
@@ -35,9 +35,9 @@ class Perfil extends StatefulWidget {
 class _MyPerfil extends State<Perfil> {
   int radioValue = 1;
   var _context;
-  User user;
+  UserKcal user;
 
-  _MyPerfil(User user) {
+  _MyPerfil(UserKcal user) {
     this.user = user;
   }
 

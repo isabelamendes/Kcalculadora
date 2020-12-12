@@ -50,18 +50,18 @@ class UserDatabaseHelper {
     );
   }
 
-  Future<int> insert(User user) async {
+  Future<int> insert(UserKcal user) async {
     Database db = await userHelper.database;
     return await db.insert(_tableName, user.toMap());
   }
 
  
-  Future<List<User>> queryAll() async {
+  Future<List<UserKcal>> queryAll() async {
     Database db = await userHelper.database;
     var userMapList = await db.query(_tableName);
-    List<User> users = new List<User>();
+    List<UserKcal> users = new List<UserKcal>();
     for(int i = 0; i < userMapList.length; i++) {
-      users.add(User.fromMap(userMapList[i]));
+      users.add(UserKcal.fromMap(userMapList[i]));
     }
     return users;
   }

@@ -3,9 +3,9 @@ import 'package:kcalculadora/components/views.dart';
 import 'package:kcalculadora/database/models.dart';
 
 class Historico extends StatefulWidget {
-  User user;
+  UserKcal user;
 
-  Historico(User user) {
+  Historico(UserKcal user) {
     this.user = user;
   }
 
@@ -18,9 +18,9 @@ class Historico extends StatefulWidget {
 class _MyHistorico extends State<Historico> {
 
   var _context;
-  User user;
+  UserKcal user;
 
-  _MyHistorico(User user) {
+  _MyHistorico(UserKcal user) {
     this.user = user;
   }
   

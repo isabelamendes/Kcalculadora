@@ -6,9 +6,9 @@ import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/components/views.dart';
 
 class Diario extends StatefulWidget {
-  User user;
+  UserKcal user;
 
-  Diario(User user) {
+  Diario(UserKcal user) {
     this.user = user;
   }
 
@@ -21,9 +21,9 @@ class Diario extends StatefulWidget {
 class _MyDiario extends State<Diario> {
 
   var _context;
-  User user;
+  UserKcal user;
 
-  _MyDiario(User user) {
+  _MyDiario(UserKcal user) {
     this.user = user;
   }
 

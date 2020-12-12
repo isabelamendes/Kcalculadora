@@ -7,9 +7,9 @@ import 'package:kcalculadora/utils/constantes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TelaNavegacao extends StatefulWidget {
-  User user;
+  UserKcal user;
 
-  TelaNavegacao(User user) {
+  TelaNavegacao(UserKcal user) {
     this.user = user;
   }
 
@@ -20,14 +20,14 @@ class TelaNavegacao extends StatefulWidget {
 }
 
 class _MyTelaNavegacao extends State<TelaNavegacao> {
-  User user;
+  UserKcal user;
   int _currentPage = 0;
   var _pages;
   
   
   var _context;
 
-  _MyTelaNavegacao(User user) {
+  _MyTelaNavegacao(UserKcal user) {
     this.user = user;
   }
 

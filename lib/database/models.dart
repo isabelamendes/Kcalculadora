@@ -1,5 +1,5 @@
 
-class User {
+class UserKcal {
   int id;
   String email = "";
   String password = "";
@@ -7,9 +7,9 @@ class User {
   String objetivo = "Perder Peso"; //radiobutton
   bool notificacoes = false;  //switch
 
-  User();
+  UserKcal();
 
-  User.fromMap(map) {
+  UserKcal.fromMap(map) {
     this.id = map["id"];
     this.email = map["email"];
     this.password = map["password"];
@@ -32,8 +32,6 @@ class User {
     map["password"] = this.password;
     return map;
   }
-
-
 
 }
 
