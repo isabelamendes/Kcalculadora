@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kcalculadora/database/models.dart';
 import 'package:kcalculadora/components/buttons/simple_round_button.dart';
 import 'package:kcalculadora/utils/constantes.dart';
-
 import '../../components/views.dart';
 
 void _salvarConfig(BuildContext context) {
@@ -227,74 +226,3 @@ class _MyPerfil extends State<Perfil> {
   }
 }
                           
-    
-    
-    /*Form(
-      key: formKey;
-      child: Column(
-        children: [
-          Column(
-                children: [
-                  Text('Qual seu objetivo?'), 
-               ]  
-          ),
-          Row(
-            children: [
-              Radio(
-                value: 1,
-                onChanged: (int inValue) {
-                  setState(() {
-                    otherData.radioValue = inValue;
-                  });
-                },
-                groupValue: otherData.radioValue,
-              ),
-              Text("Perder peso"),
-            ],
-          ),
-          Row(
-            children: [
-              Radio(
-                value: 2,
-                onChanged: (int inValue) {
-                  setState(() {
-                    otherData.radioValue = inValue;
-                  });
-                },
-                groupValue: otherData.radioValue,
-              ),
-              Text("Ganhar peso"),
-            ],
-          ),
-          Row(
-            children: [
-                Radio(
-                value: 3,
-                onChanged: (int inValue) {
-                  setState(() {
-                    otherData.radioValue = inValue;
-                  });
-                },
-                groupValue: otherData.radioValue,
-              ),
-              Text("Manter peso"),
-            ],
-          ),
-          
-            SimpleRoundButton(
-              backgroundColor: PRIMARY_THEME_COLOR,
-              buttonText: Text(
-                "Botao",
-                style: TextStyle(
-                  color: Colors.white
-                  )
-              ),
-              onPressed: () {
-                
-              }
-              ),
-        ]
-      ),
-    );
-  }
-}*/

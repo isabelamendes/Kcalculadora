@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kcalculadora/components/buttons/simple_round_button.dart';
 import 'package:kcalculadora/database/models.dart';
-import 'package:kcalculadora/components/alimento/alimento.dart';
-import 'package:kcalculadora/pages/login/login.dart';
-import 'package:kcalculadora/utils/constantes.dart';
-import 'package:kcalculadora/pages/telaPrincipal/diario.dart';
 import 'package:kcalculadora/components/views.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class ListaAlimentos extends StatefulWidget {
   @override

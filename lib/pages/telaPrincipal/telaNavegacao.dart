@@ -6,9 +6,6 @@ import 'package:kcalculadora/pages/telaPrincipal/perfil.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../forms.dart';
-import 'perfil.dart';
-
 class TelaNavegacao extends StatefulWidget {
   User user;
 

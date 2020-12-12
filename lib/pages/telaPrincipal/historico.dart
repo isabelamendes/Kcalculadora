@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kcalculadora/components/views.dart';
 import 'package:kcalculadora/database/models.dart';
-import 'package:kcalculadora/components/buttons/simple_round_button.dart';
-import 'package:kcalculadora/pages/alimentos/listaAlimentos.dart';
-import 'package:kcalculadora/utils/constantes.dart';
-
-
 
 class Historico extends StatefulWidget {
   User user;

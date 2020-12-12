@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "213125787509",
+    "project_id": "kcalculadora-b689b",
+    "storage_bucket": "kcalculadora-b689b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213125787509:android:51a00afdaf3f94d4236d3c",
+        "android_client_info": {
+          "package_name": "br.unicamp.kcalculadora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213125787509-2mtfjrt3a6jh1nrb5ffom583gi2le0a7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWU6qP1ifvzwy7MnDgAHnrj_rEOWrUgbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "213125787509-2mtfjrt3a6jh1nrb5ffom583gi2le0a7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
