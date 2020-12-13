@@ -61,7 +61,6 @@ class Alimento {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = new Map<String, dynamic>();
-    map["uid"] = this.uid;
     map["calorias"] = this.calorias;
     map["nome"] = this.nome;
     return map;
