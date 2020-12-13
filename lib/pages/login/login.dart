@@ -19,7 +19,10 @@ class _LoginPageState extends State<MyLoginPage> {
   final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   final GlobalKey<FormState> formKeyLogin = new GlobalKey<FormState>();
   final UserKcal user = new UserKcal();
-  UserKcal userLogin = new UserKcal();
+  String emailLogin;
+  String passwordLogin;
+  String emailRegistro;
+  String passwordRegistro;
   UserKcal userRegistro = new UserKcal();
 
   _toTelaPrincipalView(UserKcal user) {
@@ -49,30 +52,14 @@ class _LoginPageState extends State<MyLoginPage> {
     );
   }
 
-  void listarUsuarios() async {
-    List<UserKcal> usuarios = await UserDatabaseHelper.userHelper.queryAll();
-
-    if(usuarios.length > 0) {
-      usuarios.forEach((usuario) {  
-        print("ID: " + usuario.uid.toString());
-        print("Email: " + usuario.email);
-        print("Senha: " + usuario.password + "\n");
-      });
-    } else {
-      print("Tabela de usuários vazia!");
-    }
-  }
-
-  void _loginUser(BuildContext context, UserKcal user) async {
+  void _loginUser(BuildContext context) async {
     final scaffold = Scaffold.of(context);
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: user.email, password: user.password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: this.emailLogin, password: this.passwordLogin);
       String uidCredential = userCredential.user.uid;
       if(uidCredential != "") {
-        user.uidCredential = uidCredential;
         try {
-          String uid = await new UserReference().getUidByUser(user);
-          user.uid = uid;
+          UserKcal user = await new UserReference().getUserByUidCredential(uidCredential);
           _toTelaPrincipalView(user);
         } catch(e) {
           scaffold.showSnackBar(
@@ -106,8 +93,12 @@ class _LoginPageState extends State<MyLoginPage> {
   void _registrarUsuario(BuildContext context, UserKcal user) async {
     final scaffold = Scaffold.of(context);
     try {
-      auth.createUserWithEmailAndPassword(email: user.email, password: user.password);
-      new UserReference().createUser(user);
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: this.emailRegistro, password: this.passwordRegistro);
+      String uidCredential = userCredential.user.uid;
+      if(uidCredential != "") {
+        user.uidCredential = uidCredential;
+        new UserReference().createUser(user);
+      }
       scaffold.showSnackBar(
         SnackBar(
           content: Text('Usuário registrado com sucesso!'),
@@ -333,8 +324,7 @@ class _LoginPageState extends State<MyLoginPage> {
                         }
                       },
                       onSaved: (String inValue) {
-                        print(inValue);
-                        userLogin.setEmail(inValue);
+                        this.emailLogin = inValue;
                       }
                     ),
                   ),
@@ -394,7 +384,7 @@ class _LoginPageState extends State<MyLoginPage> {
                           return null;
                       },
                       onSaved: (String inValue) {
-                        this.userLogin.setPassword(inValue);
+                        this.passwordLogin = inValue;
                       }
                     ),
                   ),
@@ -465,7 +455,7 @@ class _LoginPageState extends State<MyLoginPage> {
                                     onPressed: () {
                                       if (formKeyLogin.currentState.validate()) {
                                         formKeyLogin.currentState.save();
-                                        this._loginUser(context, this.userLogin);
+                                        this._loginUser(context);
                                       }
                                     }
                                   ),
@@ -476,7 +466,7 @@ class _LoginPageState extends State<MyLoginPage> {
                           onPressed: () {
                             if (formKeyLogin.currentState.validate()) {
                               formKeyLogin.currentState.save();
-                              this._loginUser(context, this.userLogin);
+                              this._loginUser(context);
                             }
                           }
                         ),
@@ -560,7 +550,7 @@ class _LoginPageState extends State<MyLoginPage> {
                         }
                       },
                       onSaved: (String inValue) {
-                        userRegistro.setEmail(inValue);
+                        this.emailRegistro = inValue;
                       }
                     ),
                   ),
@@ -687,7 +677,7 @@ class _LoginPageState extends State<MyLoginPage> {
                           return null;
                       },
                       onSaved: (String inValue) {
-                        this.userRegistro.setPassword(inValue);
+                        this.passwordRegistro = inValue;
                       }
                     ),
                   ),
@@ -704,7 +694,7 @@ class _LoginPageState extends State<MyLoginPage> {
                   padding: const EdgeInsets.only(right: 20.0),
                   child: new FlatButton(
                     child: new Text(
-                      "Listar Usuários Cadastrados",
+                      "Já possui uma conta?",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: PRIMARY_THEME_COLOR,
@@ -712,37 +702,13 @@ class _LoginPageState extends State<MyLoginPage> {
                       ),
                       textAlign: TextAlign.end,
                     ),
-                    onPressed: () => listarUsuarios(),
+                    onPressed: () => gotoLogin()
                   ),
                 ),
               ],
             ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: Builder(
-                    builder: (context) => Center(
-                      child: FlatButton(
-                        child: new Text(
-                          "Deletar todos os Usuários",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: PRIMARY_THEME_COLOR,
-                            fontSize: 15.0,
-                          ),
-                          textAlign: TextAlign.end,
-                        ),
-                        onPressed: () => deletarUsuarios(context),
-                      ),
-                    )
-                  )
-                ),
-              ],
-            ),
             new Container(
-              margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 50.0),
+              margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
               alignment: Alignment.center,
               child: new Row(
                 children: <Widget>[

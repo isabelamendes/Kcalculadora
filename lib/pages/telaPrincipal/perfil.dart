@@ -132,6 +132,7 @@ class _MyPerfil extends State<Perfil> {
                                       hintText: '2000',
                                       hintStyle: TextStyle(color: Colors.grey),
                                     ),
+                                    initialValue: this.user.calorias.toString(),
                                     validator: (String inValue) {
                                       if (inValue.isEmpty) {
                                         return "Digite a quantidade de calorias";
@@ -141,7 +142,7 @@ class _MyPerfil extends State<Perfil> {
                                       }
                                     },
                                     onSaved: (String inValue) {
-                                      user.setcalorias(int.parse(inValue));
+                                      user.setCalorias(int.parse(inValue));
                                     }
                                   ),
                                 ),
