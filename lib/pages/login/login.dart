@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/database/models.dart';
 import 'package:kcalculadora/pages/telaPrincipal/telaNavegacao.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kcalculadora/database/user_database_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kcalculadora/database/user_reference.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -54,7 +54,7 @@ class _LoginPageState extends State<MyLoginPage> {
 
     if(usuarios.length > 0) {
       usuarios.forEach((usuario) {  
-        print("ID: " + usuario.id.toString());
+        print("ID: " + usuario.uid.toString());
         print("Email: " + usuario.email);
         print("Senha: " + usuario.password + "\n");
       });
@@ -63,29 +63,76 @@ class _LoginPageState extends State<MyLoginPage> {
     }
   }
 
-  void _loginUser(UserKcal user) async {
-    try{
-      await auth.signInWithEmailAndPassword(email: user.email, password: user.password);
-    } catch(e) {
+  void _loginUser(BuildContext context, UserKcal user) async {
+    final scaffold = Scaffold.of(context);
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: user.email, password: user.password);
+      String uidCredential = userCredential.user.uid;
+      if(uidCredential != "") {
+        user.uidCredential = uidCredential;
+        try {
+          String uid = await new UserReference().getUidByUser(user);
+          user.uid = uid;
+          _toTelaPrincipalView(user);
+        } catch(e) {
+          scaffold.showSnackBar(
+            SnackBar(
+              content: Text('Problemas ao encontrar UID do Usuário!'),
+              action: SnackBarAction(
+                label: 'OK',
+                onPressed: () {
 
+                },
+              ),
+            ),
+          );
+        }
+      }
+    } catch(e) {
+      scaffold.showSnackBar(
+        SnackBar(
+          content: Text('Usuário não autenticado no Firebase!'),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {
+
+            },
+          ),
+        ),
+      );
     }
-    _toTelaPrincipalView(user);
   }
 
   void _registrarUsuario(BuildContext context, UserKcal user) async {
-    auth.createUserWithEmailAndPassword(email: user.email, password: user.password);
     final scaffold = Scaffold.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: Text('Usuário registrado com sucesso!'),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {
+    try {
+      auth.createUserWithEmailAndPassword(email: user.email, password: user.password);
+      new UserReference().createUser(user);
+      scaffold.showSnackBar(
+        SnackBar(
+          content: Text('Usuário registrado com sucesso!'),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {
 
-          },
+            },
+          ),
         ),
-      ),
-    );
+      );
+    } catch(e) {
+      scaffold.showSnackBar(
+        SnackBar(
+          content: Text('Problemas ao criar o usuário!'),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {
+
+            },
+          ),
+        ),
+      );
+    }
+    
   }
 
   @override
@@ -382,55 +429,59 @@ class _LoginPageState extends State<MyLoginPage> {
               child: new Row(
                 children: <Widget>[
                   new Expanded(
-                    child: FlatButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      splashColor: PRIMARY_THEME_COLOR,
-                      color: PRIMARY_THEME_COLOR,
-                      child: new Row(
-                        children: <Widget>[
-                          new Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              "Entrar",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          new Expanded(
-                            child: Container(),
-                          ),
-                          new Transform.translate(
-                            offset: Offset(15.0, 0.0),
-                            child: new Container(
-                              padding: const EdgeInsets.all(5.0),
-                              child: FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                    new BorderRadius.circular(28.0)),
-                                splashColor: Colors.white,
-                                color: Colors.white,
-                                child: FaIcon(
-                                  FontAwesomeIcons.signInAlt,
-                                  color: PRIMARY_THEME_COLOR,
+                    child: Builder(
+                      builder: (context) => Center(
+                        child: FlatButton(
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          splashColor: PRIMARY_THEME_COLOR,
+                          color: PRIMARY_THEME_COLOR,
+                          child: new Row(
+                            children: <Widget>[
+                              new Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Text(
+                                  "Entrar",
+                                  style: TextStyle(color: Colors.white),
                                 ),
-                                onPressed: () {
-                                  if (formKeyLogin.currentState.validate()) {
-                                    formKeyLogin.currentState.save();
-                                    this._loginUser(this.userLogin);
-                                  }
-                                }
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                      onPressed: () {
-                        if (formKeyLogin.currentState.validate()) {
-                          formKeyLogin.currentState.save();
-                          this._loginUser(this.userLogin);
-                        }
-                      }
-                    ),
+                              new Expanded(
+                                child: Container(),
+                              ),
+                              new Transform.translate(
+                                offset: Offset(15.0, 0.0),
+                                child: new Container(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: FlatButton(
+                                    shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                        new BorderRadius.circular(28.0)),
+                                    splashColor: Colors.white,
+                                    color: Colors.white,
+                                    child: FaIcon(
+                                      FontAwesomeIcons.signInAlt,
+                                      color: PRIMARY_THEME_COLOR,
+                                    ),
+                                    onPressed: () {
+                                      if (formKeyLogin.currentState.validate()) {
+                                        formKeyLogin.currentState.save();
+                                        this._loginUser(context, this.userLogin);
+                                      }
+                                    }
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          onPressed: () {
+                            if (formKeyLogin.currentState.validate()) {
+                              formKeyLogin.currentState.save();
+                              this._loginUser(context, this.userLogin);
+                            }
+                          }
+                        ),
+                      )
+                    )
                   ),
                 ],
               ),

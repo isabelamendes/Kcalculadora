@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:kcalculadora/database/models.dart';
 import 'package:kcalculadora/components/buttons/simple_round_button.dart';
 import 'package:kcalculadora/utils/constantes.dart';
+import 'package:kcalculadora/database/user_reference.dart';
 import '../../components/views.dart';
+import 'package:kcalculadora/utils/helpers.dart';
 
-void _salvarConfig(BuildContext context) {
+void _salvarConfig(BuildContext context, UserKcal user) async {
+  try {
+    await new UserReference().updateUser(user);
     final scaffold = Scaffold.of(context);
     scaffold.showSnackBar(
       SnackBar(
@@ -16,11 +20,24 @@ void _salvarConfig(BuildContext context) {
         ),
       ),
     );
+  } catch(e) {
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text('Problemas ao atualizar as configurações!'),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {
+          },
+        ),
+      ),
+    );
   }
+}
 
 
 class Perfil extends StatefulWidget {
-  UserKcal user = new UserKcal();
+  UserKcal user;
 
   Perfil(UserKcal user) {
     this.user = user;
@@ -39,6 +56,15 @@ class _MyPerfil extends State<Perfil> {
 
   _MyPerfil(UserKcal user) {
     this.user = user;
+    if (user.objetivo == "Ganhar peso") {
+      this.radioValue = 1;
+    }
+    if (user.objetivo == "Manter peso") {
+      this.radioValue = 2;
+    }
+    if (user.objetivo == "Perder peso") {
+      this.radioValue = 3;
+    }
   }
 
   final formKey = GlobalKey<FormState>();
@@ -99,13 +125,24 @@ class _MyPerfil extends State<Perfil> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 new Expanded(
-                                  child: TextField(
+                                  child: TextFormField(
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: '2000',
                                       hintStyle: TextStyle(color: Colors.grey),
                                     ),
+                                    validator: (String inValue) {
+                                      if (inValue.isEmpty) {
+                                        return "Digite a quantidade de calorias";
+                                      }
+                                      if (!isNumeric(inValue)) {
+                                        return "Digite somente números";
+                                      }
+                                    },
+                                    onSaved: (String inValue) {
+                                      user.setcalorias(int.parse(inValue));
+                                    }
                                   ),
                                 ),
                                 
@@ -135,6 +172,7 @@ class _MyPerfil extends State<Perfil> {
                                         setState(() {
                                           this.radioValue = inValue;
                                         });
+                                        this.user.objetivo = "Ganhar peso";
                                       },
                                       groupValue: this.radioValue ,
                                     ),
@@ -149,6 +187,7 @@ class _MyPerfil extends State<Perfil> {
                                         setState(() {
                                           this.radioValue = inValue;
                                         });
+                                        this.user.objetivo = "Manter peso";
                                       },
                                       groupValue: this.radioValue,
                                     ),
@@ -163,6 +202,7 @@ class _MyPerfil extends State<Perfil> {
                                         setState(() {
                                           this.radioValue = inValue;
                                         });
+                                        this.user.objetivo = "Perder peso";
                                       },
                                       groupValue: this.radioValue,
                                     ),
@@ -184,12 +224,12 @@ class _MyPerfil extends State<Perfil> {
                                 ),
                               ),
                               Switch(
-                              onChanged: (bool value) {
-                                setState(() {
-                                  user.notificacoes = value;
-                                });
-                              },
-                              value: user.notificacoes,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    this.user.notificacoes = value;
+                                  });
+                                },
+                                value: this.user.notificacoes,
                               ),
                             ]),
                           ),
@@ -206,7 +246,10 @@ class _MyPerfil extends State<Perfil> {
                                   )
                                   ),
                                   onPressed: () {
-                                    _salvarConfig(context);
+                                    if (formKey.currentState.validate()) {
+                                      formKey.currentState.save();
+                                      _salvarConfig(context, this.user);
+                                    }
                                   }              
                                 ),
                               ],
