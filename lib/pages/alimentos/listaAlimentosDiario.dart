@@ -4,53 +4,40 @@ import 'package:kcalculadora/database/models.dart';
 import 'package:kcalculadora/components/views.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kcalculadora/database/alimento_reference.dart';
-import 'package:kcalculadora/pages/alimentos/novoAlimento.dart';
-import 'package:kcalculadora/pages/telaPrincipal/diario.dart';
 import 'package:kcalculadora/pages/telaPrincipal/telaNavegacao.dart';
 
 
-class ListaAlimentos extends StatefulWidget {
+class ListaAlimentosDiario extends StatefulWidget {
   UserKcal user;
 
-  ListaAlimentos(UserKcal user) {
+  ListaAlimentosDiario(UserKcal user) {
     this.user = user;
   }
 
   @override
-  _ListaAlimentosState createState() => new _ListaAlimentosState(this.user);
+  _ListaAlimentosDiarioState createState() => new _ListaAlimentosDiarioState(this.user);
 }
 
-class _ListaAlimentosState extends State<ListaAlimentos> {
+class _ListaAlimentosDiarioState extends State<ListaAlimentosDiario> {
 
   UserKcal user;
 
-  _ListaAlimentosState(UserKcal user) {
+  _ListaAlimentosDiarioState(UserKcal user) {
     this.user = user;
   }
   
   var _context;
   final Alimento alimento = new Alimento();
 
-  Future<List<Alimento>> alimentos;
+  Future<List<Alimento>> alimentosHoje;
 
-  Future<List<Alimento>> getListAlimentos() async {
-    AlimentoReference alimentoReference = new AlimentoReference();
-    List<Alimento> alimentos = await alimentoReference.getAllAlimentos();
-    return alimentos;
+  Future<List<Alimento>> getListAlimentosHoje() async {
+    DiarioUserReference diarioReference = new DiarioUserReference();
+    List<Alimento> alimentosHoje = await diarioReference.getAllAlimentosByDataAndUser(user, new DateTime.now());
+    return alimentosHoje;
   }
 
-  void _adicionarNovoAlimento(BuildContext context) {
-    setState((){
-      Navigator.push(_context,
-        MaterialPageRoute(
-          builder: (BuildContext context) {
-          return NovoAlimento();
-        })
-      );
-    });
-  }
-
-  void adicionarAlimentoDiario(Alimento alimento, BuildContext context) {
+  void removerAlimentoDiario(Alimento alimento, BuildContext context) {
     DiarioUser diarioUser = new DiarioUser();
     diarioUser.data = new DateTime.now();
     diarioUser.userUid = this.user.uid;
@@ -59,16 +46,16 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
     final scaffold = Scaffold.of(context);
     try {
       DiarioUserReference diarioUserReference = new DiarioUserReference();
-      diarioUserReference.createDiario(diarioUser);
+      diarioUserReference.deleteDiario(diarioUser);
       scaffold.showSnackBar(
         SnackBar(
-          content: Text(alimento.nome + ' adicionado(a) ao diário!'),
+          content: Text(alimento.nome + ' removido(a) do diário!'),
         ),
       );
-    } catch (e) {
+    } catch(e) {
       scaffold.showSnackBar(
         SnackBar(
-          content: Text('Problemas ao adicionar alimento ao diário!'),
+          content: Text('Problemas ao remover alimento!'),
         ),
       );
     }
@@ -76,7 +63,7 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
 
   @override
   void initState() {
-    this.alimentos = getListAlimentos();
+    this.alimentosHoje = getListAlimentosHoje();
     super.initState();
   }
   
@@ -97,23 +84,15 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
             })
           },
         ), 
-        title: Text("Lista de Alimentos"),
+        title: Text("Alimentos Consumidos Hoje"),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: FaIcon(FontAwesomeIcons.plus),
-            onPressed: () {
-              _adicionarNovoAlimento(context);
-            },
-          )
-        ],
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
           child: FutureBuilder<List>(
-            future: this.alimentos,
+            future: this.alimentosHoje,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting: return simpleLoaderView();
@@ -133,9 +112,9 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
                         trailing: Builder(
                           builder: (context) => 
                           IconButton(
-                            icon: FaIcon(FontAwesomeIcons.plusCircle),
-                            tooltip: 'Adicionar Alimento',
-                            onPressed: () => adicionarAlimentoDiario(alimento, context),
+                            icon: FaIcon(FontAwesomeIcons.timesCircle),
+                            tooltip: 'Remover Alimento',
+                            onPressed: () => removerAlimentoDiario(alimento, context),
                           ),
                         )
                       ));

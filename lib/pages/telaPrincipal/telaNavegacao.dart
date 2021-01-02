@@ -5,7 +5,6 @@ import 'package:kcalculadora/pages/telaPrincipal/historico.dart';
 import 'package:kcalculadora/pages/telaPrincipal/perfil.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 class TelaNavegacao extends StatefulWidget {
   UserKcal user;
 
@@ -53,7 +52,9 @@ class _MyTelaNavegacao extends State<TelaNavegacao> {
       ),
       home: Scaffold(
         body: Center(child: _pages.elementAt(_currentPage)),
-        appBar: AppBar(title: Text("Kcalculadora")),
+        appBar: AppBar(
+          title: Text("Kcalculadora"),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(

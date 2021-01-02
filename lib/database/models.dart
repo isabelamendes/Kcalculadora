@@ -2,7 +2,7 @@ class UserKcal {
   String uid;
   String uidCredential;
   int calorias = 2000;
-  String objetivo = "Perder Peso";
+  String objetivo = "Perder peso";
   bool notificacoes = false;
 
   UserKcal();
@@ -63,6 +63,29 @@ class Alimento {
     Map<String, dynamic> map = new Map<String, dynamic>();
     map["calorias"] = this.calorias;
     map["nome"] = this.nome;
+    return map;
+  }
+}
+
+class DiarioUser {
+  String uid;
+  String userUid;
+  String alimentoUid;
+  DateTime data;
+
+  DiarioUser();
+
+  DiarioUser.fromMap(map) {
+    this.userUid = map["userUid"];
+    this.alimentoUid = map["alimentoUid"];
+    this.data = map["data"].toDate();
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = new Map<String, dynamic>();
+    map["userUid"] = this.userUid;
+    map["alimentoUid"] = this.alimentoUid;
+    map["data"] = this.data;
     return map;
   }
 }

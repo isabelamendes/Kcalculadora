@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kcalculadora/database/diario_user_reference.dart';
 import 'package:kcalculadora/database/models.dart';
 import 'package:kcalculadora/components/buttons/simple_round_button.dart';
 import 'package:kcalculadora/pages/alimentos/listaAlimentos.dart';
+import 'package:kcalculadora/pages/alimentos/listaAlimentosDiario.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/components/views.dart';
 
@@ -20,6 +22,14 @@ class Diario extends StatefulWidget {
 
 class _MyDiario extends State<Diario> {
 
+  Future<List<Alimento>> alimentosHoje;
+
+  Future<List<Alimento>> getAlimentosHoje() async {
+    DiarioUserReference diarioUserReference = new DiarioUserReference();
+    List<Alimento> alimentosHoje = await diarioUserReference.getAllAlimentosDiarioByUser(this.user);
+    return alimentosHoje;
+  }
+  
   var _context;
   UserKcal user;
 
@@ -32,10 +42,27 @@ class _MyDiario extends State<Diario> {
       Navigator.push(_context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-          return ListaAlimentos();
+          return ListaAlimentos(user);
         })
       );
     });
+  }
+
+  _toListaAlimentosHojeView() {
+    setState((){
+      Navigator.push(_context,
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+          return ListaAlimentosDiario(user);
+        })
+      );
+    });
+  }
+
+  @override
+  void initState() {
+    this.alimentosHoje = getAlimentosHoje();
+    super.initState();
   }
   
   @override
@@ -48,13 +75,30 @@ class _MyDiario extends State<Diario> {
         decoration: primaryBackgroundView(),
         child: Column(
           children: [
-            diarioView(),
+            FutureBuilder<List>(
+              future: this.alimentosHoje,
+              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+                String objetivo = this.user.objetivo;
+                String totalCalorias = this.user.calorias.toString();
+                int caloriasConsumidas = 0;
+                int caloriasRestantes = this.user.calorias;
+                if(snapshot.hasData) {
+                  List<Alimento> alimentos = snapshot.data;
+                  alimentos.forEach((alimento) {
+                    caloriasConsumidas += alimento.calorias;
+                  });
+                  caloriasRestantes -= caloriasConsumidas;
+                  return diarioView(objetivo, totalCalorias, caloriasConsumidas.toString(), caloriasRestantes.toString());
+                }
+                return diarioView(objetivo, totalCalorias, caloriasConsumidas.toString(), caloriasRestantes.toString());
+              }
+            ),
             Container(
               padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
               child: SimpleRoundButton(
-                backgroundColor: PRIMARY_THEME_COLOR,
+                backgroundColor: Colors.green,
                 buttonText: Text(
-                  "Adicionar Alimento",
+                  "+ Consumo",
                   style: TextStyle(
                     color: Colors.white
                   )
@@ -62,8 +106,18 @@ class _MyDiario extends State<Diario> {
                 onPressed: () => _toListaAlimentosView(),
               ),
             ),
-            Divider(
-              height: 25,
+            Container(
+              padding: EdgeInsets.fromLTRB(50, 0, 50, 30),
+              child: SimpleRoundButton(
+                backgroundColor: SECONDARY_THEME_COLOR,
+                buttonText: Text(
+                  "Alimentos Consumidos",
+                  style: TextStyle(
+                    color: Colors.white
+                  )
+                ),
+                onPressed: () => _toListaAlimentosHojeView(),
+              ),
             ),
           ],
         )

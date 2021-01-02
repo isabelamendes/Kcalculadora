@@ -30,22 +30,12 @@ class _NovoAlimentoState extends State<NovoAlimento> {
       scaffold.showSnackBar(
         SnackBar(
           content: Text('Alimento cadastrado!'),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {
-            },
-          ),
         ),
       );
     } catch(e) {
       scaffold.showSnackBar(
         SnackBar(
           content: Text('Problemas ao cadastrar alimento!'),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {
-            },
-          ),
         ),
       );
     }
@@ -214,7 +204,7 @@ class _NovoAlimentoState extends State<NovoAlimento> {
                               child: Column(
                                 children: [
                                   SimpleRoundButton(
-                                    backgroundColor: SECONDARY_THEME_COLOR,
+                                    backgroundColor: PRIMARY_THEME_COLOR,
                                     buttonText: Text(
                                     "Adicionar",
                                     style: TextStyle(

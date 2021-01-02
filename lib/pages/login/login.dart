@@ -23,6 +23,7 @@ class _LoginPageState extends State<MyLoginPage> {
   String passwordLogin;
   String emailRegistro;
   String passwordRegistro;
+  String passwordRegistroConfirm;
   UserKcal userRegistro = new UserKcal();
 
   _toTelaPrincipalView(UserKcal user) {
@@ -34,22 +35,6 @@ class _LoginPageState extends State<MyLoginPage> {
         })
       );
     });
-  }
-
-  void deletarUsuarios(BuildContext context) {
-    UserDatabaseHelper.userHelper.deleteAll();
-    final scaffold = Scaffold.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: Text('Usuários deletados com sucesso!'),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {
-
-          },
-        ),
-      ),
-    );
   }
 
   void _loginUser(BuildContext context) async {
@@ -65,12 +50,6 @@ class _LoginPageState extends State<MyLoginPage> {
           scaffold.showSnackBar(
             SnackBar(
               content: Text('Problemas ao encontrar UID do Usuário!'),
-              action: SnackBarAction(
-                label: 'OK',
-                onPressed: () {
-
-                },
-              ),
             ),
           );
         }
@@ -79,12 +58,6 @@ class _LoginPageState extends State<MyLoginPage> {
       scaffold.showSnackBar(
         SnackBar(
           content: Text('Usuário não autenticado no Firebase!'),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {
-
-            },
-          ),
         ),
       );
     }
@@ -92,38 +65,34 @@ class _LoginPageState extends State<MyLoginPage> {
 
   void _registrarUsuario(BuildContext context, UserKcal user) async {
     final scaffold = Scaffold.of(context);
-    try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: this.emailRegistro, password: this.passwordRegistro);
-      String uidCredential = userCredential.user.uid;
-      if(uidCredential != "") {
-        user.uidCredential = uidCredential;
-        new UserReference().createUser(user);
+    if (this.passwordRegistro == this.passwordRegistroConfirm) {
+      try {
+        UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: this.emailRegistro, password: this.passwordRegistro);
+        String uidCredential = userCredential.user.uid;
+        if(uidCredential != "") {
+          user.uidCredential = uidCredential;
+          new UserReference().createUser(user);
+        }
+        scaffold.showSnackBar(
+          SnackBar(
+            content: Text('Usuário registrado com sucesso!'),
+          ),
+        );
+      } catch(e) {
+        scaffold.showSnackBar(
+          SnackBar(
+            content: Text('Problemas ao criar o usuário!'),
+          ),
+        );
       }
+    }
+    else {
       scaffold.showSnackBar(
         SnackBar(
-          content: Text('Usuário registrado com sucesso!'),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {
-
-            },
-          ),
-        ),
-      );
-    } catch(e) {
-      scaffold.showSnackBar(
-        SnackBar(
-          content: Text('Problemas ao criar o usuário!'),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {
-
-            },
-          ),
+          content: Text('As senhas não coincidem!'),
         ),
       );
     }
-    
   }
 
   @override
@@ -149,7 +118,7 @@ class _LoginPageState extends State<MyLoginPage> {
             padding: EdgeInsets.only(top: 250.0),
             child: Center(
               child: FaIcon(
-                FontAwesomeIcons.leaf,
+                FontAwesomeIcons.calculator,
                 color: Colors.white,
                 size: 50.0,
               ),
@@ -264,7 +233,8 @@ class _LoginPageState extends State<MyLoginPage> {
         color: Colors.white,
         image: DecorationImage(
           colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.07), BlendMode.dstATop),
+              Colors.black.withOpacity(0.07), BlendMode.dstATop
+          ),
           image: AssetImage('assets/images/apple.png'),
           fit: BoxFit.cover,
         ),
@@ -607,12 +577,14 @@ class _LoginPageState extends State<MyLoginPage> {
                         if (inValue.isEmpty) {
                           return "Digite sua senha";
                         }
-                        
                         if (inValue.length <  6) {
                           return "A senha deve conter 6 ou mais dígitos";
                         }
                         return null;
                       },
+                      onSaved: (String inValue) {
+                        this.passwordRegistro = inValue;
+                      }
                     ),
                   ),
                 ],
@@ -671,13 +643,10 @@ class _LoginPageState extends State<MyLoginPage> {
                         if (inValue.length <  6) {
                           return "A senha deve conter 6 ou mais dígitos";
                         }
-                        /*if (inValue != this.userRegistro.password){
-                          return "Senhas não coincidem";
-                        }*/
                           return null;
                       },
                       onSaved: (String inValue) {
-                        this.passwordRegistro = inValue;
+                        this.passwordRegistroConfirm = inValue;
                       }
                     ),
                   ),

@@ -13,11 +13,6 @@ void _salvarConfig(BuildContext context, UserKcal user) async {
     scaffold.showSnackBar(
       SnackBar(
         content: Text('Configurações de usuário salvas com sucesso!'),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {
-          },
-        ),
       ),
     );
   } catch(e) {
@@ -25,11 +20,6 @@ void _salvarConfig(BuildContext context, UserKcal user) async {
     scaffold.showSnackBar(
       SnackBar(
         content: Text('Problemas ao atualizar as configurações!'),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {
-          },
-        ),
       ),
     );
   }
@@ -56,13 +46,13 @@ class _MyPerfil extends State<Perfil> {
 
   _MyPerfil(UserKcal user) {
     this.user = user;
-    if (user.objetivo == "Ganhar peso") {
+    if (this.user.objetivo == "Ganhar peso") {
       this.radioValue = 1;
     }
-    if (user.objetivo == "Manter peso") {
+    if (this.user.objetivo == "Manter peso") {
       this.radioValue = 2;
     }
-    if (user.objetivo == "Perder peso") {
+    if (this.user.objetivo == "Perder peso") {
       this.radioValue = 3;
     }
   }
@@ -72,7 +62,9 @@ class _MyPerfil extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     this._context = context;
-    return SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
       child: ConstrainedBox(
         constraints: BoxConstraints(
           // minHeight: viewportConstraints.maxHeight,
@@ -80,7 +72,7 @@ class _MyPerfil extends State<Perfil> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
+          children: [
             Container(
               decoration: secondaryBackgroundView(),
               padding: EdgeInsets.all(30.0),
@@ -239,7 +231,7 @@ class _MyPerfil extends State<Perfil> {
                             child: Column(
                               children: [
                                 SimpleRoundButton(
-                                  backgroundColor: SECONDARY_THEME_COLOR,
+                                  backgroundColor: PRIMARY_THEME_COLOR,
                                   buttonText: Text(
                                   "Salvar configurações",
                                   style: TextStyle(
@@ -256,14 +248,14 @@ class _MyPerfil extends State<Perfil> {
                               ],
                             ),
                           )
-                           
+                          
                         ] 
                       ),
                     ],
                   )
                 ),
-            )
-          ]
+            ),
+          ])
         )
       )
     );
