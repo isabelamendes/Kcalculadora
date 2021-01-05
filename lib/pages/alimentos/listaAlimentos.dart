@@ -5,8 +5,8 @@ import 'package:kcalculadora/components/views.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kcalculadora/database/alimento_reference.dart';
 import 'package:kcalculadora/pages/alimentos/novoAlimento.dart';
-import 'package:kcalculadora/pages/telaPrincipal/diario.dart';
 import 'package:kcalculadora/pages/telaPrincipal/telaNavegacao.dart';
+import 'package:kcalculadora/utils/constantes.dart';
 
 
 class ListaAlimentos extends StatefulWidget {
@@ -44,7 +44,7 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
       Navigator.push(_context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-          return NovoAlimento();
+          return NovoAlimento(this.user);
         })
       );
     });
@@ -125,14 +125,37 @@ class _ListaAlimentosState extends State<ListaAlimentos> {
                     List<Alimento> alimentos = snapshot.data;
                     List<ListTile> tiles = new List<ListTile>();
                     alimentos.forEach((alimento) {
+                      String imagemKcal;
+                      if(alimento.calorias < 100) {
+                        imagemKcal = PATH_LOW_KCAL;
+                      } else if (alimento.calorias >= 100 && alimento.calorias <= 200) {
+                        imagemKcal = PATH_MED_KCAL;
+                      } else {
+                        imagemKcal = PATH_HIGH_KCAL;
+                      }
                       tiles.add(ListTile(
-                        title: Text(alimento.nome),
+                        leading: Container(
+                          margin: const EdgeInsets.only(top:10, bottom: 5),
+                          child : ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minWidth: 44,
+                              minHeight: 44,
+                              maxWidth: 64,
+                              maxHeight: 64,
+                            ),
+                            child: Image.asset(imagemKcal, fit: BoxFit.cover),
+                          ),
+                        ),
+                        title: Container(
+                          margin: const EdgeInsets.only(top:10, bottom: 5),
+                          child : Text(alimento.nome),
+                        ),
                         isThreeLine: true,
                         subtitle: Text(alimento.calorias.toString() + ' Kcal'),
-                        leading: Icon(Icons.label),
                         trailing: Builder(
                           builder: (context) => 
                           IconButton(
+                            color: Colors.green,
                             icon: FaIcon(FontAwesomeIcons.plusCircle),
                             tooltip: 'Adicionar Alimento',
                             onPressed: () => adicionarAlimentoDiario(alimento, context),

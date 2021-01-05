@@ -3,16 +3,30 @@ import 'package:kcalculadora/components/buttons/simple_round_button.dart';
 import 'package:kcalculadora/database/models.dart';
 import 'package:kcalculadora/components/views.dart';
 import 'package:kcalculadora/database/alimento_reference.dart';
+import 'package:kcalculadora/pages/alimentos/listaAlimentos.dart';
 import 'package:kcalculadora/utils/constantes.dart';
 import 'package:kcalculadora/utils/helpers.dart';
 
 
 class NovoAlimento extends StatefulWidget {
+
+  UserKcal user;
+
+  NovoAlimento(UserKcal user) {
+    this.user = user;
+  }
+
   @override
-  _NovoAlimentoState createState() => new _NovoAlimentoState();
+  _NovoAlimentoState createState() => new _NovoAlimentoState(this.user);
 }
 
 class _NovoAlimentoState extends State<NovoAlimento> {
+
+  UserKcal user;
+
+  _NovoAlimentoState(UserKcal user) {
+    this.user = user;
+  }
 
   var _context;
   String nomeAlimento;
@@ -52,7 +66,16 @@ class _NovoAlimentoState extends State<NovoAlimento> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => {
+            setState((){
+              Navigator.push(_context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                  return ListaAlimentos(this.user);
+                })
+              );
+            })
+          },
         ), 
         title: Text("Novo Alimento"),
         centerTitle: true,

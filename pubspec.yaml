@@ -73,7 +73,10 @@ flutter:
     - assets/images/mountains.jpg
     - assets/images/apple.png
     - assets/images/background5.jpg
-    
+    - assets/images/lowkcal.png
+    - assets/images/medkcal.png
+    - assets/images/highkcal.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
